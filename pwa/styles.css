@@ -279,6 +279,18 @@ html, body {
 }
 .reload-btn:active { background: rgba(255,255,255,0.1); }
 
+/* ── Pull to refresh indicator ── */
+#pull-indicator {
+  display: none;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  background: #0a1628;
+  flex-shrink: 0;
+}
+#pull-indicator.visible { display: block; }
+
 /* ── iframe ── */
 #scheduler-frame {
   flex: 1;

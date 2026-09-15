@@ -1,5 +1,5 @@
-const CACHE = 'squadron2-v3';
-const ASSETS = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.json'];
+const CACHE = 'squadron2-v4';
+const ASSETS = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.json', '/offline.html'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
@@ -14,9 +14,15 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // network-first for the scheduler, cache-first for our own assets
-  if (e.request.url.includes('scheduler.squadron2.com')) return;
+  const url = new URL(e.request.url);
+
+  // never intercept proxy requests — always go to network
+  if (url.pathname.startsWith('/proxy')) return;
+
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    fetch(e.request)
+      .catch(() => caches.match(e.request)
+        .then(cached => cached || caches.match('/offline.html'))
+      )
   );
 });

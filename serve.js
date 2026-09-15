@@ -18,7 +18,18 @@ const MIME = {
 
 // ── Session store ──
 // browser gets a sq2sid cookie (our domain) → maps to scheduler cookies
-const sessions = {};
+// sessions are persisted to disk so logins survive server restarts
+const SESSIONS_FILE = path.join(__dirname, '.sessions.json');
+
+function loadSessions() {
+  try { return JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8')); } catch { return {}; }
+}
+
+function saveSessions() {
+  fs.writeFileSync(SESSIONS_FILE, JSON.stringify(sessions, null, 2));
+}
+
+const sessions = loadSessions();
 
 function parseCookies(str = '') {
   const out = {};
@@ -60,6 +71,7 @@ function storeSetCookies(sid, setCookieHeaders) {
       console.log(`  Cookie stored [${sid.slice(0,8)}]: ${k}=${v.slice(0,20)}...`);
     }
   });
+  saveSessions();
 }
 
 // ── HTML rewriter ──

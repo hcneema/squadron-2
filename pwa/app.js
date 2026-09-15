@@ -66,3 +66,32 @@ function goHome() {
 function reloadScheduler() {
   frame.src = frame.src;
 }
+
+// ── Pull to refresh ──
+const pullIndicator = document.getElementById('pull-indicator');
+const PULL_THRESHOLD = 80;
+let touchStartY = 0;
+let pulling = false;
+
+schedScreen.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+  pulling = false;
+}, { passive: true });
+
+schedScreen.addEventListener('touchmove', e => {
+  const dy = e.touches[0].clientY - touchStartY;
+  if (dy > 20) {
+    pulling = true;
+    pullIndicator.classList.add('visible');
+    pullIndicator.textContent = dy > PULL_THRESHOLD ? '↑ Release to refresh' : '↓ Pull to refresh';
+  }
+}, { passive: true });
+
+schedScreen.addEventListener('touchend', () => {
+  if (pulling) {
+    const dy = event.changedTouches[0].clientY - touchStartY;
+    pullIndicator.classList.remove('visible');
+    if (dy > PULL_THRESHOLD) reloadScheduler();
+    pulling = false;
+  }
+});
