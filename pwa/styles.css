@@ -1,0 +1,288 @@
+* {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  color: #fff;
+  background: #0a1628;
+}
+
+/* ── App shell ── */
+#app {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Screens ── */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.screen.active {
+  transform: translateX(0);
+}
+
+.screen.behind {
+  transform: translateX(-30%);
+}
+
+/* ── HOME SCREEN ── */
+#screen-home {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Sky background */
+.sky {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #050d1a 0%,
+    #0a1628 25%,
+    #0d2444 50%,
+    #1a3a6b 75%,
+    #c0784a 90%,
+    #e8a55a 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 12%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 32% 8%,  rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 5%,  rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 9%,  rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 22%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 18%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.7) 0%, transparent 100%);
+}
+
+/* ── Install banner ── */
+#install-banner {
+  display: none;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(240,165,0,0.95);
+  color: #0a1628;
+  padding: 12px 16px;
+  padding-top: calc(12px + env(safe-area-inset-top));
+  font-size: 13px;
+  font-weight: 600;
+}
+#install-banner.visible { display: flex; }
+#install-btn {
+  background: #0a1628;
+  color: #f0a500;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: calc(env(safe-area-inset-top) + 20px) 20px 20px;
+}
+
+.plane {
+  font-size: 40px;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 12px rgba(255,200,100,0.4));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-6px) rotate(-3deg); }
+}
+
+.hero-text { display: flex; flex-direction: column; gap: 3px; }
+
+.club-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.club-sub {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── Cards ── */
+.cards {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 18px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.card:active {
+  transform: scale(0.97);
+  background: rgba(255,255,255,0.14);
+}
+
+.card-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-body { flex: 1; }
+.card-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.card-desc  { font-size: 12px; color: rgba(255,255,255,0.55); }
+.card-arrow { font-size: 22px; color: rgba(255,255,255,0.4); flex-shrink: 0; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.35);
+  padding: 4px 4px 0;
+  margin-top: 4px;
+}
+
+.card-club {
+  border-color: rgba(240,165,0,0.25);
+  background: rgba(240,165,0,0.07);
+}
+
+/* ── Footer ── */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 24px 20px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ── SCHEDULER SCREEN ── */
+#screen-scheduler {
+  background: #fff;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0a1628;
+  padding: 0 8px;
+  padding-top: env(safe-area-inset-top);
+  height: calc(52px + env(safe-area-inset-top));
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: #4a9edd;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 8px;
+  min-width: 80px;
+}
+.back-btn:active { background: rgba(255,255,255,0.1); }
+.back-arrow { font-size: 22px; line-height: 1; }
+
+.page-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  flex: 1;
+}
+
+.reload-btn {
+  background: none;
+  border: none;
+  color: #4a9edd;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 8px;
+  min-width: 44px;
+  text-align: right;
+}
+.reload-btn:active { background: rgba(255,255,255,0.1); }
+
+/* ── iframe ── */
+#scheduler-frame {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: #fff;
+}

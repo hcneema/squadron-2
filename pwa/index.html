@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a1628" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Squadron 2" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <title>Squadron 2</title>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── SCREEN: HOME ── -->
+  <div id="screen-home" class="screen active">
+
+    <div id="install-banner">
+      <span id="install-text">📲 Tap Share ↑ then "Add to Home Screen" to install</span>
+      <button id="install-btn">Install</button>
+    </div>
+
+    <div class="sky"></div>
+
+    <div class="hero">
+      <div class="plane">✈</div>
+      <div class="hero-text">
+        <div class="club-name">SQUADRON 2</div>
+        <div class="club-sub">Flying Club · RHV, San Jose, CA</div>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <div class="section-label">CLUB</div>
+      <button class="card card-club" onclick="openPage('calendar')">
+        <div class="card-icon">🗺️</div>
+        <div class="card-body">
+          <div class="card-title">Club Calendar</div>
+          <div class="card-desc">Aircraft and Instructor schedules</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+
+      <div class="section-label">MY FLIGHTS</div>
+      <button class="card" onclick="openPage('booking')">
+        <div class="card-icon">📅</div>
+        <div class="card-body">
+          <div class="card-title">Reserve / Modify</div>
+          <div class="card-desc">Book or modify a reservation</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+      <button class="card" onclick="openPage('schedules')">
+        <div class="card-icon">🗓️</div>
+        <div class="card-body">
+          <div class="card-title">My Bookings</div>
+          <div class="card-desc">Your upcoming flights</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+
+      <div class="section-label">ACCOUNT</div>
+      <button class="card" onclick="openPage('account')">
+        <div class="card-icon">👤</div>
+        <div class="card-body">
+          <div class="card-title">My Account</div>
+          <div class="card-desc">Profile and settings</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+
+    </div>
+
+    <div class="footer">Powered by Paperless141©</div>
+  </div>
+
+  <!-- ── SCREEN: SCHEDULER ── -->
+  <div id="screen-scheduler" class="screen">
+    <div class="top-bar">
+      <button class="back-btn" onclick="goHome()">
+        <span class="back-arrow">‹</span> Home
+      </button>
+      <span id="page-title" class="page-title"></span>
+      <button class="reload-btn" onclick="reloadScheduler()">↻</button>
+    </div>
+    <iframe id="scheduler-frame" src="about:blank"></iframe>
+  </div>
+
+</div>
+<script src="app.js?v=5"></script>
+</body>
+</html>

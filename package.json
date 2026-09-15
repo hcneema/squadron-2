@@ -1,0 +1,11 @@
+{
+  "name": "squadron2-inspector",
+  "version": "1.0.0",
+  "description": "Network inspector for scheduler.squadron2.com",
+  "scripts": {
+    "inspect": "node inspect.js"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}
