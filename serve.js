@@ -187,7 +187,7 @@ http.createServer((req, res) => {
   } else {
     serveStatic(req, res);
   }
-}).listen(3000, '0.0.0.0', () => {
+}).listen(process.env.PORT || 3000, '0.0.0.0', () => {
   console.log('\nSquadron 2 PWA running at:');
   console.log('  Local:   http://localhost:3000');
   for (const iface of Object.values(os.networkInterfaces()).flat()) {

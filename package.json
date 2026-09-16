@@ -1,11 +1,15 @@
 {
-  "name": "squadron2-inspector",
+  "name": "squadron2-app",
   "version": "1.0.0",
-  "description": "Network inspector for scheduler.squadron2.com",
+  "description": "Mobile PWA for Squadron 2 Flying Club",
   "scripts": {
+    "start": "node serve.js",
     "inspect": "node inspect.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "playwright": "^1.48.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
